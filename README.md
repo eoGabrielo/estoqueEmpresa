@@ -64,7 +64,3 @@ Observações e melhorias sugeridas
 - Adicionar validações mais completas nas entradas (ex.: joi, express-validator).
 - Adicionar testes automatizados e fluxo de CI/CD.
 - Melhorar tratamento de erros e logs.
-
-Licença
-
-Projeto interno — adapte conforme necessário.
