@@ -104,4 +104,4 @@ O arquivo `produto.test.js` cobre o CRUD completo de produtos:
 4. **Atualização de produto (PUT/:id)** – valida se os campos do produto foram alterados corretamente.
 5. **Remoção de produto (DELETE/:id)** – verifica se a exclusão do produto foi concluída com sucesso.
 
-> Com esses testes, é possível garantir que todas as funcionalidades do CRUD de produtos funcionam sem precisar testar manualmente via Postman.
+> Com esses testes, é possível garantir que todas as funcionalidades do CRUD de produtos funcionam, podendo escolher fazer os testes ou sem testar via Postman.
