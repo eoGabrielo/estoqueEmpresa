@@ -89,7 +89,6 @@ npm test
 | ------ | ----------------- | --------------------------------- |
 | POST   | `/users/register` | Registra novo usuário             |
 | POST   | `/users/login`    | Autentica usuário e retorna token |
-| GET    | `/users`          | Lista usuários (rota protegida)   |
 
 > ⚠️ Apenas o usuário administrador deve acessar o sistema após o registro inicial.
 
