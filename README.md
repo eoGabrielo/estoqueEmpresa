@@ -1,28 +1,45 @@
-# Sistema de Gerenciamento de Estoque
+# 🛠 Sistema de Gerenciamento de Estoque
 
-Este sistema foi desenvolvido para uma empresa que precisava gerenciar o estoque de ferramentas e itens dos funcionários. O objetivo é controlar cadastro, consulta, criação, atualização e exclusão de produtos (ferramentas e itens) e gerenciar usuários que acessam o sistema.
+[![Node.js](https://img.shields.io/badge/Node.js-v22.19.0-brightgreen)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-blue)](https://www.mongodb.com/cloud/atlas)
+[![Jest](https://img.shields.io/badge/Tests-Jest-red)](https://jestjs.io/)
 
-Principais funcionalidades
+Este sistema foi desenvolvido para uma empresa que precisava gerenciar o estoque de ferramentas e itens dos funcionários. Ele permite controlar cadastro, consulta, criação, atualização e exclusão de produtos, além de gerenciar usuários com autenticação JWT.
 
-- Cadastro de produtos (ferramentas e itens) com nome, tipo, descrição e quantidade.
-- Listagem de produtos e consulta por ID.
-- Criação, edição e remoção de produtos.
-- Cadastro e autenticação de usuários (registro e login) com geração de token JWT.
-- Rotas protegidas para operações que requerem autenticação.
-- Cadastro e autenticação de um único usuário responsável (admin). Somente esse usuário terá permissão para gerenciar o estoque.
-- Rotas protegidas para operações que requerem autenticação (apenas o usuário responsável pode acessar).
+---
 
-Como rodar
+## 🔹 Principais Funcionalidades
 
-1. Instale as dependências:
+* Cadastro de produtos (ferramentas e itens) com `nome`, `tipo`, `descrição` e `quantidade`.
+* Listagem de produtos e consulta por ID.
+* Criação, edição e remoção de produtos.
+* Cadastro e autenticação de usuários (registro e login) com geração de token JWT.
+* Rotas protegidas para operações que requerem autenticação.
+* Apenas um usuário administrador pode gerenciar o estoque.
+* **Testes automatizados** das rotas de produtos com Jest (`produto.test.js`), cobrindo criação, listagem, busca por ID, atualização e exclusão de produtos.
+
+---
+
+## ⚡ Tecnologias Utilizadas
+
+* **Back-end:** Node.js, Express.js
+* **Banco de dados:** MongoDB (Atlas)
+* **Autenticação:** JWT
+* **Testes:** Jest + Supertest
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+### 1. Instale as dependências
 
 ```powershell
 npm install
 ```
 
-2. Configure variáveis de ambiente (recomendado)
+### 2. Configure variáveis de ambiente (recomendado)
 
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+Crie um arquivo `.env` na raiz do projeto:
 
 ```
 MONGO_URI=seu_uri_mongodb_aqui
@@ -30,37 +47,62 @@ JWT_SECRET=seu_segredo_jwt_aqui
 PORT=3000
 ```
 
-> Observação: atualmente o projeto contém a URI do MongoDB e a chave JWT no código fonte. Para produção, substitua esses valores por variáveis de ambiente.
+> Observação: atualmente o projeto contém URI e JWT direto no código. Para produção, use variáveis de ambiente.
 
-3. Rodar em modo desenvolvimento (com nodemon):
+### 3. Rodar em desenvolvimento (com nodemon)
 
 ```powershell
 npm run dev
 ```
 
-4. Rodar em produção:
+### 4. Rodar em produção
 
 ```powershell
 npm start
 ```
 
-Endpoints principais
+### 5. Rodar testes automatizados (Jest)
 
-- GET /produtos - lista todos os produtos
-- GET /produtos/:id - busca produto por ID
-- POST /produtos - cria um novo produto
-- PUT /produtos/:id - atualiza um produto
-- DELETE /produtos/:id - remove um produto
+```powershell
+npm test
+```
 
-- POST /users/register - registra novo usuário
-- POST /users/login - autentica usuário e retorna token
-- GET /users - lista usuários (rota protegida)
+> Os testes do arquivo `produto.test.js` garantem que todas as rotas de produtos (`POST`, `GET`, `GET/:id`, `PUT`, `DELETE`) funcionem corretamente.
 
-OBS: O sistema foi projetado para ter apenas um cadastro de usuário responsável (administrador). O endpoint `POST /users/register` existe para criar esse usuário inicialmente; após a criação, apenas esse usuário deverá acessar o sistema para gerenciar o estoque.
+---
 
-Observações e melhorias sugeridas
+## 📌 Endpoints Principais
 
-- Mover segredos e URIs para variáveis de ambiente (implementei instruções no .env).
-- Adicionar validações mais completas nas entradas (ex.: joi, express-validator).
-- Adicionar testes automatizados e fluxo de CI/CD.
-- Melhorar tratamento de erros e logs.
+### Produtos
+
+| Método | Rota            | Descrição               |
+| ------ | --------------- | ----------------------- |
+| GET    | `/produtos`     | Lista todos os produtos |
+| GET    | `/produtos/:id` | Busca produto por ID    |
+| POST   | `/produtos`     | Cria um novo produto    |
+| PUT    | `/produtos/:id` | Atualiza um produto     |
+| DELETE | `/produtos/:id` | Remove um produto       |
+
+### Usuários
+
+| Método | Rota              | Descrição                         |
+| ------ | ----------------- | --------------------------------- |
+| POST   | `/users/register` | Registra novo usuário             |
+| POST   | `/users/login`    | Autentica usuário e retorna token |
+| GET    | `/users`          | Lista usuários (rota protegida)   |
+
+> ⚠️ Apenas o usuário administrador deve acessar o sistema após o registro inicial.
+
+---
+
+## 🧪 Testes Automatizados com Jest
+
+O arquivo `produto.test.js` cobre o CRUD completo de produtos:
+
+1. **Criação de produto (POST)** – verifica se o produto é criado corretamente e retorna `_id`.
+2. **Listagem de produtos (GET)** – verifica se todos os produtos são listados corretamente.
+3. **Busca por ID (GET/:id)** – garante que o produto retornado é o mesmo que foi criado.
+4. **Atualização de produto (PUT/:id)** – valida se os campos do produto foram alterados corretamente.
+5. **Remoção de produto (DELETE/:id)** – verifica se a exclusão do produto foi concluída com sucesso.
+
+> Com esses testes, é possível garantir que todas as funcionalidades do CRUD de produtos funcionam sem precisar testar manualmente via Postman.
